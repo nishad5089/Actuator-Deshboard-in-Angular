@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{'Trace Details'}}</h1>
+<div mat-dialog-content class="bg-light-one">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="{{'Request'}}">
+      <app-request [trace]="trace"></app-request>
+    </mat-tab>
+    <mat-tab label="{{'Response'}}">
+      <app-response [trace]="trace"></app-response>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" (click)="closeModal()">{{ 'Close' }}
+  </button>
+</div>

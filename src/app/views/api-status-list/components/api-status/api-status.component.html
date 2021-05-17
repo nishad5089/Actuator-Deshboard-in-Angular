@@ -1,0 +1,92 @@
+<mat-card>
+  <table class="table" style="border: none" border="0">
+    <tr>
+      <td width="85%" style="border: none">
+        <div class="search-icon">
+          <i class="icon-magnifier"></i>
+        </div>
+        <div style="float: left; width: 95%;">
+        <mat-form-field style="display: inline;">
+          <mat-label style="margin-left: 9px;">Search User</mat-label>
+          <input style="margin-left: 9px;" matInput placeholder="Enter Searching Keywords" (keyup)="applyFilter($event.target.value)"/>
+        </mat-form-field>
+      </div>
+      </td>
+      <td class="float-right" style="border: none">
+        <!-- <a class="btn btn-secondary" matTooltip="{{'Search​ User'}}"
+           (click)="showFilters=!showFilters" style="margin-right: 5px;">
+          <i class="fa fa-filter"></i>
+        </a> -->
+        <a class="btn btn-primary" style="background-color: #044479; color: #fff;" (click)="add()"
+           matTooltip="{{addButtonTooltips}}">
+          <!-- <i class="fa fa-plus"></i> -->
+          <i class="icon-plus"></i>
+        </a>
+      </td>
+    </tr>
+  </table>
+</mat-card>
+<br>
+<table mat-table [dataSource]="dataSource">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="sl">
+    <th mat-header-cell *matHeaderCellDef> #SL </th>
+    <td mat-cell *matCellDef="let row; let i = index" > {{i + 1}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef> User Name </th>
+    <td mat-cell *matCellDef="let row"> {{ row?.username === undefined
+      || row?.username === '' ? 'N/A': row?.username }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> First Name </th>
+    <td mat-cell *matCellDef="let row"> {{row?.firstName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <td mat-cell *matCellDef="let row"> {{row?.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="age">
+    <th mat-header-cell *matHeaderCellDef> Age </th>
+    <td mat-cell *matCellDef="let row"> {{row?.age}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">{{'Action'}}</th>
+    <td mat-cell *matCellDef="let element" style="text-align: center">
+      <a
+        class="btn btn-danger" matTooltip="Delete User"
+        (click)="delete(element)" style="margin-right: 5px; color: #fff;">
+        <i class="icon-trash"></i>
+      </a>
+      <a
+        class="btn btn-secondary" matTooltip="Update User​" style="background-color: #044479; color: #fff;"
+        (click)="update(element)">
+        <i class="icon-note"></i>
+      </a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="disclaimer">
+    <td mat-footer-cell *matFooterCellDef [colSpan]="displayColumns.length" align="center">
+      {{'No Content Found'}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+      <tr [hidden]="dataSource.data.length === 0" mat-row *matRowDef="let row; columns: displayColumns"></tr>
+      <tr [hidden]="dataSource.data.length !== 0" mat-footer-row *matFooterRowDef="['disclaimer']"
+          class="example-second-footer-row"></tr>
+</table>
+<mat-paginator
+[pageSizeOptions]="[1,25, 50, 100, 200]"
+showFirstLastButtons></mat-paginator>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

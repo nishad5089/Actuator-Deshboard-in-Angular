@@ -1,0 +1,150 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-success">
+        <div class="card-body pb-0">
+          <div class="float-right"><i class="icon-check"></i> 200 Response</div>
+          <div class="text-value">{{http200Traces?.length}}</div>
+          <div>Updated: {{http200Traces[0]?.timestamp | date: 'short'}}</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height: 70px">
+          <canvas baseChart class="chart" [datasets]="lineChart2Data" [labels]="lineChart2Labels"
+            [options]="lineChart2Options" [colors]="lineChart2Colours" [legend]="lineChart2Legend"
+            [chartType]="lineChart2Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-warning">
+        <div class="card-body pb-0">
+          <div class="float-right"><i class="icon-ban"></i> 404 Response</div>
+          <div class="text-value">{{http404Traces?.length}}</div>
+          <div>Updated: {{http404Traces[0]?.timestamp | date: 'short'}}</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height: 70px">
+          <canvas baseChart class="chart" [datasets]="lineChart1Data" [labels]="lineChart1Labels"
+            [options]="lineChart1Options" [colors]="lineChart1Colours" [legend]="lineChart1Legend"
+            [chartType]="lineChart1Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body pb-0">
+          <div class="float-right">
+            <i class="fa fa-exclamation-circle" style="font-size: 18px" aria-hidden="true"></i>
+            400 Response
+          </div>
+          <div class="text-value">{{http400Traces?.length}}</div>
+          <div>Updated: {{http400Traces[0]?.timestamp | date: 'short'}}</div>
+        </div>
+        <div class="chart-wrapper mt-3" style="height: 70px">
+          <canvas baseChart class="chart" [datasets]="lineChart3Data" [labels]="lineChart3Labels"
+            [options]="lineChart3Options" [colors]="lineChart3Colours" [legend]="lineChart3Legend"
+            [chartType]="lineChart3Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body pb-0">
+          <div class="float-right">
+            <i class="fa fa-bug" style="font-size: 18px" aria-hidden="true"></i>
+            500 Response
+          </div>
+          <div class="text-value">{{http500Traces?.length}}</div>
+          <div>Updated: {{http500Traces[0]?.timestamp | date: 'short'}}</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height: 70px">
+          <canvas baseChart class="chart" [datasets]="barChart1Data" [labels]="barChart1Labels"
+            [options]="barChart1Options" [colors]="barChart1Colours" [legend]="barChart1Legend"
+            [chartType]="barChart1Type"></canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <div class="card-columns cols-2">
+    <div class="card">
+      <div class="card-header">
+        Bar Chart
+        <div class="card-header-actions">
+          <a href="#">
+            <small class="text-muted">docs</small>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
+            [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Pie Chart
+        <div class="card-header-actions">
+          <a href="#">
+            <small class="text-muted">docs</small>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" [datasets]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="timeStamp">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Time Stamp</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element?.timestamp | date: 'short' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="method">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Method</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element?.request.method }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeTaken">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Time Taken(ms)</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.timeTaken }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Status</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;" [ngSwitch]="element?.response.status">
+        <span *ngSwitchCase="'200'" class="badge badge-success">{{ element?.response.status }}</span>
+        <span *ngSwitchCase="'400'" class="badge badge-info">{{ element?.response.status }}</span>
+        <span *ngSwitchCase="'404'" class="badge badge-warning">{{element?.response.status }}</span>
+        <span *ngSwitchCase="'500'" class="badge badge-danger">{{ element?.response.status }}</span>
+        <span *ngSwitchDefault class="badge badge-primary">{{ element?.response.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="uri">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">URI</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ (element?.request.uri.length > 50) ? (element?.request.uri | slice:0:50) +'...' : (element?.request.uri)}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef>View</th>
+      <td mat-cell *matCellDef="let element">
+        <a class="btn btn-secondary" (click)="details(element); $event.stopPropagation()" matTooltip="See Details" style="background-color: #044479; color: #fff">
+          <i class="icon-eye"></i>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns" (click)="details(element);$event.stopPropagation()"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[1, 25, 50, 100, 200]" showFirstLastButtons></mat-paginator>
+</div>

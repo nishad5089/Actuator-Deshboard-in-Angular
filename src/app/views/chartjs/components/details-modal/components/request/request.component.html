@@ -1,0 +1,79 @@
+<!-- <mat-card><p>request works!</p></mat-card> -->
+<mat-card>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Time Stamp​ :" }}</mat-label>
+        <span>
+          {{ trace?.timestamp | date: "medium" }}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Time Taken(ms) :" }}</mat-label>
+        &nbsp;<span>
+          {{ trace?.timeTaken }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{
+          "Request Method :​ "
+        }}</mat-label>
+        &nbsp;
+        <span>
+          {{ trace?.request.method }}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Remote Address :" }}</mat-label>
+        &nbsp;<span>
+          {{ trace?.request.remoteAddress }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "URI :​" }}</mat-label>
+        &nbsp;
+        <span>
+          {{ trace?.request.uri }}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Origin :" }}</mat-label>
+        &nbsp;<span>
+          {{ trace?.request.headers["origin"] }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Accept :" }}</mat-label>
+        <span style="word-wrap:break-word">
+          {{ trace?.request.headers["accept"] }}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "User Agent :" }}</mat-label>
+        &nbsp;<span>
+          {{ trace?.request.headers["user-agent"] }}
+        </span>
+      </div>
+    </div>
+  </div>
+</mat-card>

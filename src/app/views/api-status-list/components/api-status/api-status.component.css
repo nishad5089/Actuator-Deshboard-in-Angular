@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+.search-icon{
+  float: left;
+  padding: 6px;
+  background-color: #044479;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  margin-top: 10px;
+  border-radius: 4px;
+}

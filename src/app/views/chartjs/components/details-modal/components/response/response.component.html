@@ -1,0 +1,42 @@
+<mat-card>
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Status :" }}</mat-label> &nbsp;
+        <span>
+          {{ trace?.response.status }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Date :" }}</mat-label>&nbsp;
+        <span>
+          {{ trace?.response.headers["Date"] }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div style="padding: 7px">
+        <mat-label style="font-weight: 500">{{ "Content Type :​ "}}</mat-label> &nbsp;
+        <span>
+          {{ trace?.response.headers["Content-Type"] }}
+        </span>
+      </div>
+    </div>
+  </div>
+<div class="row">
+  <div class="col-md-12">
+    <div style="padding: 7px">
+      <mat-label style="font-weight: 500">{{ "Server Allowed Origin :" }}</mat-label>
+      &nbsp;<span>
+        {{ trace?.response.headers["Access-Control-Allow-Origin"] }}
+      </span>
+    </div>
+  </div>
+</div>
+</mat-card>

@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{data.dialogTitle}}</h1>
+<div mat-dialog-content>
+  <br/>
+  <!-- <div class="overlay"
+       *ngIf="isLoadingResults">
+    <img src="assets/img/brand/loader_colored.gif" class="spinner" style="height: 200px; width: 200px">
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <mat-label>{{'User Name​'}}</mat-label>
+        <input matInput required [(ngModel)]="user.username" placeholder="{{'Enter User Name'}}">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field>
+        <mat-label>{{'First Name'}}</mat-label>
+        <input matInput required [(ngModel)]="user.firstName" placeholder="{{'Enter First Name​'}}">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <mat-label>{{'Last Name​'}}</mat-label>
+        <input matInput required [(ngModel)]="user.lastName" placeholder="{{'Enter First Name​'}}">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field>
+        <mat-label>{{'Age​'}}</mat-label>
+        <input matInput required [(ngModel)]="user.age" placeholder="{{'Enter Age​'}}">
+        <mat-hint>{{''}}</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button  color="warn" (click)="closeModal()">{{'Close'}}</button>
+  <button mat-raised-button color="primary" [disabled]="!checkValidity()" (click)="validateAndSave()">{{'Save'}}</button>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+  </ngx-spinner>

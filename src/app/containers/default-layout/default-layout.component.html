@@ -1,0 +1,79 @@
+<app-header [navbarBrandRouterLink]="['/charts']" [fixed]="true" [navbarBrandFull]="{
+    src: 'assets/img/brand/bs-logo.svg',
+    width: 150,
+    height: 100,
+    alt: 'CoreUI Logo'
+  }" [navbarBrandMinimized]="{
+    src: 'assets/img/brand/bs-mini-logo.png',
+    width: 30,
+    height: 30,
+    alt: 'CoreUI Logo'
+  }" [sidebarToggler]="'lg'" [asideMenuToggler]="false">
+  <ul class="nav navbar-nav d-md-down-none">
+    <li class="nav-item px-3">
+      <a class="nav-link" href="#">Dashboard</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item d-md-down-none">
+      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+    </li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+        dropdownToggle (click)="(false)">
+        <img src="assets/img/avatars/8.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
+    (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <!-- breaking change 'cui-breadcrumb' -->
+    <cui-breadcrumb>
+      <!-- Breadcrumb Menu-->
+      <li class="breadcrumb-menu">
+        <div class="btn-group" role="group" aria-label="Button group with nested">
+          <span><i class="fa fa-server"></i> <strong>System: </strong> {{systemHealth?.status}}</span>&nbsp; &nbsp;
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested">
+          <span><i class="fa fa-database"></i> <strong>DB: </strong> {{systemHealth?.components.db.details.database}} -
+            {{systemHealth?.components.db.status}}</span> &nbsp; &nbsp;
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested">
+          <span><i class="fa fa-hdd-o"></i> <strong>Disk Space:</strong>
+            {{ systemHealth?.components.diskSpace.details.free}}</span> &nbsp; &nbsp;
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested">
+          <span [ngClass]="{'text-danger': systemCpu?.measurements[0].value < 2 }"><i class="fa fa-microchip"></i>
+            <strong>Processors: </strong> &nbsp; {{systemCpu?.measurements[0].value}}</span>&nbsp; &nbsp;
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested">
+          <span><i class="fa fa-clock-o"></i> <strong>Up Time:</strong> {{processUpTime}}</span>
+        </div>
+      </li>
+    </cui-breadcrumb>
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- /.container-fluid -->
+  </main>
+
+</div>
+<app-footer>
+  <span><a href="https://coreui.io">BS-23</a> &copy; Team-3B</span>
+  <span class="ml-auto">Powered by
+    <a href="https://coreui.io/angular">Brain Station-23 Ltd</a></span>
+</app-footer>
